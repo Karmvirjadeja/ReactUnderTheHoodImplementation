@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StateComponentReRendering</title>
+  </head>
+  <body>
+    <div id="buttonParent"></div>
+  </body>
+  <script>
+    //Under the Hood how state is define in the backend
+    let state = {
+      count: 0,
+    };
+
+    //How state changes on an action
+    function onbuttonPress() {
+      state.count++;
+      buttonComponentReRender();
+    }
+
+    //Componenet is rerenderd logic as state changes as the input   Ejecting a button dynameically
+    function buttonComponentReRender() {
+      document.getElementById("buttonParent").innerHTML = "";
+      const component = buttonComponent(state.count);
+      document.getElementById("buttonParent").appendChild(component);
+    }
+
+    //How is the state changes as  an inputt rerender
+    function buttonComponent(count) {
+      const button = document.createElement("button");
+      button.innerHTML = `Counter:${count}`;
+
+      button.setAttribute("onclick", `onbuttonPress()`);
+
+      return button;
+    }
+
+    //Renrendering call
+    buttonComponentReRender();
+  </script>
+</html>
